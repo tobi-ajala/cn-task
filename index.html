@@ -6,19 +6,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
 
-    <div id="container">
-      <div id="one_article" style="">
-        <table id="article_table" class="table table-bordered">
-          <th>Title</th>
-          <th>Body</th>
-          <th>Cover Image</th>
-        </table>
-      </div>
+    <div id="header">
+      <img src="images/cn-header.jpg" alt="logo" />
     </div>
+
+    <div id="container"></div>
 
     <script>
       $(document).ready(function() {
@@ -26,23 +23,12 @@
           console.log(data) //just to log in console as well
           var article_data = '';
           $.each(data, function(key, value){
-            article_data += '<tr>';
-            article_data += '<td>' + value.title + '</td>';
-            article_data += '<td>';
-              $.each(value.body, function (index, el) {
-                 if (el.type == 'plaintext') {
-                   article_data += '<span style="display:block; color:black;">' + el.body + '</span>';
-                 } else if (el.type == 'h2') {
-                   article_data += '<span style="display:block; color:red; font-weight:bold;">' + el.body + '</span>';
-                 } else if (el.type == 'pull_quote') {
-                   article_data += '<span style="display:block; color:gray; font-style:italic;">' + el.body + '</span>';
-                 }
-               });
-            article_data += '</td>';
-            article_data += '<td> <a href=" '+ value.url +' "> <img src="' + value.cover + '"> </a> </td>';
-            article_data += '</tr>';
+            article_data += '<div class="article"> <a href=" '+ value.page +' ">';
+            article_data += '<h2 class="title-home">' + value.title + '</h2>';
+            article_data += '<div class="cover-home"> <img src="' + value.cover + '"> </div>';
+            article_data += '</a> </div>';
           });
-          $('#article_table').append(article_data);
+          $('#container').append(article_data);
         });
       });
     </script>

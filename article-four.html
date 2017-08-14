@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Condé Nast ID Article</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+    <div id="header">
+      <img src="images/cn-header.jpg" alt="logo" />
+    </div>
+
+    <div id="container"></div>
+
+    <script>
+      $(document).ready(function() {
+        $.getJSON("article.json", function(data) {
+          console.log(data) //just to log in console as well
+          var value = data.filter(function(o) {
+            return o.id == 4
+          }).pop();
+          console.log(value)
+          var article_data = '';
+          article_data += '<h2 class="page-title">' + value.title + '</h2>';
+          article_data += '<div class="a-body">';
+          article_data += '<div class="page-left">';
+          article_data += '<div class="page-cover"> <img src="' + value.cover + '"> </div>';
+          article_data += '</div>';
+          article_data += '<div class="page-right">';
+          article_data += '<div class="page-body">';
+          $.each(value.body, function (index, el) {
+             if (el.type == 'plaintext') {
+               article_data += '<div class="plaintext">' + el.body + '</div>';
+             } else if (el.type == 'h2') {
+               article_data += '<div class="h2">' + el.body + '</div>';
+             } else if (el.type == 'pull_quote') {
+               article_data += '<div class="pull_quote">' + el.body + '</div>';
+             }
+          });
+          article_data += '</div>';
+          article_data += '</div>';
+          article_data += '</div>';
+
+          $('#container').append(article_data);
+        });
+      });
+    </script>
+
+  </body>
+</html>
