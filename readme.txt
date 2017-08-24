@@ -1,3 +1,5 @@
+# Condé Nast JSON task
+
 This is a JSON file so needs to be opened on a server.
 MAMP works great so you can just copy the whole folder to you MAMP htdocs folder.
 1. Under the repository name, click Clone or download.
